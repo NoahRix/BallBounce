@@ -5,6 +5,7 @@ This simple Monogame based application provides a 2D grapichal scenario that ran
 
 1. Project Setup
 2. To export as a Windows Screen Saver
+3. App Usage
 
 ## Project Setup (If you do not have Monogame installed)
 To setup this app, install the Visual Studio Extension: "Monogame Framework C#".
