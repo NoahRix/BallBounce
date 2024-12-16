@@ -29,6 +29,6 @@ Under File publish options, make sure **Produce single file** is checked, then h
 
 Upon startup, the app will start rendering in windowed mode.
 
-Full screen -> Left Alt + Enter OR F11
+Full screen -> Left Alt + Enter **OR** F11
 
 The **Escape key**  will exit/close the application
