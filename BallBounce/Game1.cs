@@ -79,7 +79,7 @@ namespace BallBounce
         {
             base.Initialize();
 
-            ToggleFullScreen();
+            // ToggleFullScreen();
 
             int diameter = 20;
             Color color = Color.White;
@@ -168,31 +168,25 @@ namespace BallBounce
                 if (ball._position.X <= 0)
                 {
                     ball._velocity.X = Math.Abs(ball._velocity.X);
-                    //return;
                 }
 
                 if (ball._position.X + ball._diameter >= _screenWidth)
                 {
                     ball._velocity.X = Math.Abs(ball._velocity.X) * -1;
-                    //return;
                 }
 
                 if (ball._position.Y <= 0)
                 {
                     ball._velocity.Y = Math.Abs(ball._velocity.Y);
-                    //return;
                 }
 
                 if (ball._position.Y + ball._diameter >= _screenHeight)
                 {
                     ball._velocity.Y = Math.Abs(ball._velocity.Y) * -1;
-                    //return;
                 }
             }
 
             base.Update(gameTime);
-
-            // long memoryEnd = GC.GetTotalMemory(true);
         }
 
         private void ToggleFullScreen()
