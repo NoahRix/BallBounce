@@ -1,7 +1,7 @@
 ### Basic Runtime
 To setup this app, install the Visual Studio Extension: "Monogame Framework C#"
 
-Goto Extensions -> Browse -> "monogame"; should be the first option
+Go to Extensions -> Browse -> "monogame"; should be the first option
 
 This will ask you to run an MSI installation to provide the template needed
 
