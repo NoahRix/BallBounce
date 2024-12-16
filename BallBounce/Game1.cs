@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Input;
 using SharpDX.Direct3D9;
 using System;
 using System.Collections.Generic;
+using System.Windows.Forms.VisualStyles;
 
 namespace BallBounce
 {
@@ -77,6 +78,8 @@ namespace BallBounce
         protected override void Initialize()
         {
             base.Initialize();
+
+            ToggleFullScreen();
 
             int diameter = 20;
             Color color = Color.White;
