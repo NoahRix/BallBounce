@@ -19,6 +19,8 @@ Right Click on the BallBounce project and click Publish...
 
 ![image](https://github.com/user-attachments/assets/8f1655af-e44f-48c1-9504-8a574572ff32)
 
-Under File publish options, make sure **Produce single file** is checked:
+Under File publish options, make sure **Produce single file** is checked, then hit save:
 
 ![image](https://github.com/user-attachments/assets/11dafb57-2c4f-482b-839d-1ca6a7c389ff)
+
+
