@@ -8,12 +8,17 @@ using System.Windows.Forms.VisualStyles;
 
 namespace BallBounce
 {
+    /// <summary>
+    /// Ball class to represent each ball in disregard to the texture rendering from the main game class.
+    /// </summary>
     public class Ball
     {
         public Vector2 _position;
         public Vector2 _velocity;
         public float _radius;
         public Color _color;
+
+        // Always calculate the diameter based on the radius as a whole number.
         public int _diameter
         {
             get { return Convert.ToInt32(_radius * 2); }
@@ -21,35 +26,25 @@ namespace BallBounce
 
         public Ball(Vector2 position, Vector2 velocity, float radius, Color color)
         {
-            if (true)
-            {
-                _position = position;
-                _velocity = velocity;
-                _radius = 10f;
-                _color = color;
-            }
-            else
-            {
-                _position = position;
-                _velocity = velocity;
-                _radius = radius;
-                _color = color;
-            }
+            _position = position;
+            _velocity = velocity;
+            _radius = radius;
+            _color = color;
         }
     }
 
     public class Game1 : Game
     {
-        private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
-
-        private List<Ball> _balls;
-        private Random _random;
-        private int _screenWidth = 800;
-        private int _screenHeight = 800;
+        private GraphicsDeviceManager _graphics;    // Grapics device manager that should be global in the sense of this app.
+        private SpriteBatch _spriteBatch;           // The sprites to render in Draw()
+        private List<Ball> _balls;                  // All circles to render as a collection.
+        private Random _random;                     
+        private int _screenWidth = 800;             // If windowed, then set the screen resolution to this
+        private int _screenHeight = 800;            // ↓
         private bool _isFullScreen;
-        private Texture2D _texture2D;
+        private Texture2D _texture2D;               // Each ball (circle rendered shape) should reference the same "global" texture for optimal GPU efficiency
 
+        // Lookup table for the centralized ball texture color.
         private List<Color> _colors = new List<Color>
         {
             Color.White,
@@ -79,7 +74,7 @@ namespace BallBounce
         {
             base.Initialize();
 
-            // ToggleFullScreen();
+            ToggleFullScreen(); // If you want the app to start in fullscreen on start.
 
             int diameter = 20;
             Color color = Color.White;
@@ -122,9 +117,6 @@ namespace BallBounce
                     _random.Next(-200, 200) / 100f,
                     _random.Next(-200, 200) / 100f
                 );
-
-                // Color color = new Color(_random.Next(256), _random.Next(256), _random.Next(256));
-                // Color color = Color.White;
 
                 Color color = _colors[_random.Next(_colors.Count)];
 
