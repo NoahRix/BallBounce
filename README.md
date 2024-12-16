@@ -17,7 +17,7 @@ Right Click on the BallBounce project and click Publish...:
 
 ![image](https://github.com/user-attachments/assets/ab5af9ef-a372-4a1a-8aa1-d8fceb8c36b7)
 
-**Go to Show all settings:**
+Go to Show all settings
 
 ![image](https://github.com/user-attachments/assets/8f1655af-e44f-48c1-9504-8a574572ff32)
 
