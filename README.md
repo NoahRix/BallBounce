@@ -34,5 +34,6 @@ Upon startup, the app will start rendering in windowed mode.
 The **Escape key**  will exit/close the application
 
 Windowed mode:
+
 ![image](https://github.com/user-attachments/assets/27586556-07e9-4b72-a3b5-79dafde67980)
 
