@@ -1,4 +1,4 @@
-### Basic Runtime
+### Project Setup (If you do not have Monogame installed)
 To setup this app, install the Visual Studio Extension: "Monogame Framework C#".
 
 Go to Extensions -> Browse -> "monogame". This should be the first option.
