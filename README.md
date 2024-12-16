@@ -25,4 +25,9 @@ Under File publish options, make sure **Produce single file** is checked, then h
 
 ![image](https://github.com/user-attachments/assets/11dafb57-2c4f-482b-839d-1ca6a7c389ff)
 
+**App usage**
+
+Upon startup, the app will start rendering in windowed mode.
+
+Full screen -> Left Alt + Enter OR F11
 
