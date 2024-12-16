@@ -1,4 +1,4 @@
-### Purpose
+## Purpose
 This simple Monogame based application provides a 2D grapichal scenario that randomly moves circles to bounce off all 4 walls.
 
 ### Key points:
