@@ -30,4 +30,10 @@
     <Message Text="Restoring dotnet tools" Importance="High" />
     <Exec Command="dotnet tool restore" />
   </Target>
+	<Target Name="AfterBuild">
+		<!-- Rename the .exe to .scr -->
+		<Exec Command="move /Y &quot;$(OutputPath)$(AssemblyName).exe&quot; &quot;$(OutputPath)$(AssemblyName).scr&quot;" />
+		<!-- Copy the .scr file to System32 -->
+		<Exec Command="copy /Y &quot;$(OutputPath)$(AssemblyName).scr&quot; &quot;C:\Windows\System32\$(AssemblyName).scr&quot;" />
+	</Target>
 </Project>

@@ -15,20 +15,16 @@ namespace BallBounce
     {
         public Vector2 _position;
         public Vector2 _velocity;
-        public float _radius;
         public Color _color;
+        public int _radius;
+        public int _diameter;
 
-        // Always calculate the diameter based on the radius as a whole number.
-        public int _diameter
-        {
-            get { return Convert.ToInt32(_radius * 2); }
-        }
-
-        public Ball(Vector2 position, Vector2 velocity, float radius, Color color)
+        public Ball(Vector2 position, Vector2 velocity, int radius, Color color)
         {
             _position = position;
             _velocity = velocity;
             _radius = radius;
+            _diameter = _radius * 2;
             _color = color;
         }
     }
@@ -76,8 +72,8 @@ namespace BallBounce
 
             ToggleFullScreen(); // If you want the app to start in fullscreen on start.
 
-            int diameter = 20;
             Color color = Color.White;
+            int diameter = 20;
 
             _texture2D = new Texture2D(_graphics.GraphicsDevice, diameter, diameter);
             Color[] data = new Color[diameter * diameter];
@@ -87,13 +83,21 @@ namespace BallBounce
             {
                 for (int x = 0; x < diameter; x++)
                 {
-                    var distance = Vector2.Distance(new Vector2(x, y), center);
-                    if (distance <= diameter / 2)
+                    // Distance from the center
+                    float dx = x - diameter / 2;
+                    float dy = y - diameter / 2;
+                    float distanceSquared = dx * dx + dy * dy;
+
+                    if (distanceSquared <= diameter / 2 * diameter / 2)
                     {
-                        data[y * diameter + x] = color;
+                        // Inside the circle
+                        float distance = MathF.Sqrt(distanceSquared);
+                        float alpha = MathF.Max(0, MathF.Min(1, ((diameter / 2) - distance) / 1.5f)); // Smooth edge
+                        data[y * diameter + x] = color * alpha; // Apply alpha blending
                     }
                     else
                     {
+                        // Outside the circle
                         data[y * diameter + x] = Color.Transparent;
                     }
                 }
@@ -103,11 +107,11 @@ namespace BallBounce
 
             _random = new Random();
             _balls = new List<Ball>();
-            InitializeBalls();
+             InitializeBalls(diameter);
         }
-        private void InitializeBalls()
+        private void InitializeBalls(int diameter)
         {
-            int ballCount = 1000;
+            int ballCount = 100;
 
             Vector2 centerPosition = new Vector2(_screenWidth / 2f, _screenHeight / 2f);
 
@@ -120,7 +124,7 @@ namespace BallBounce
 
                 Color color = _colors[_random.Next(_colors.Count)];
 
-                _balls.Add(new Ball(centerPosition, velocity, .11f, color));
+                _balls.Add(new Ball(centerPosition, velocity, diameter / 2, color));
             }
         }
 
@@ -151,7 +155,7 @@ namespace BallBounce
 
             foreach (var ball in _balls)
             {
-                ball._position += ball._velocity * 200 * deltaTime; // Adjust speed
+                ball._position += ball._velocity * 100 * deltaTime; // Adjust speed
 
                 // Bounce off walls logic, handle all 4 cardinal directions
                 // |
@@ -162,7 +166,7 @@ namespace BallBounce
                     ball._velocity.X = Math.Abs(ball._velocity.X);
                 }
 
-                if (ball._position.X + ball._diameter >= _screenWidth)
+                if (ball._position.X >= _screenWidth - ball._diameter)
                 {
                     ball._velocity.X = Math.Abs(ball._velocity.X) * -1;
                 }
@@ -172,7 +176,7 @@ namespace BallBounce
                     ball._velocity.Y = Math.Abs(ball._velocity.Y);
                 }
 
-                if (ball._position.Y + ball._diameter >= _screenHeight)
+                if (ball._position.Y >= _screenHeight - ball._diameter)
                 {
                     ball._velocity.Y = Math.Abs(ball._velocity.Y) * -1;
                 }
@@ -183,25 +187,23 @@ namespace BallBounce
 
         private void ToggleFullScreen()
         {
-            float oldWidth = _screenWidth;
-            float oldHeight = _screenHeight;
-
             _isFullScreen = !_isFullScreen;
             _graphics.IsFullScreen = _isFullScreen;
+            _graphics.HardwareModeSwitch = true; // Force exclusive full-screen
 
             if (_isFullScreen)
             {
-                _screenWidth = GraphicsDevice.DisplayMode.Width;
-                _screenHeight = GraphicsDevice.DisplayMode.Height;
+                _screenWidth = _graphics.PreferredBackBufferWidth = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Width;
+                _screenHeight = _graphics.PreferredBackBufferHeight = GraphicsAdapter.DefaultAdapter.CurrentDisplayMode.Height;
+                IsMouseVisible = false;
             }
             else
             {
-                _screenWidth = 800;
-                _screenHeight = 800;
+                IsMouseVisible = true;
+                _screenWidth = _graphics.PreferredBackBufferWidth = 800;
+                _screenHeight = _graphics.PreferredBackBufferHeight = 800;
             }
 
-            _graphics.PreferredBackBufferWidth = _screenWidth;
-            _graphics.PreferredBackBufferHeight = _screenHeight;
             _graphics.ApplyChanges();
         }
 
